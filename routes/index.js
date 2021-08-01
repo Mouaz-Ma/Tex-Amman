@@ -10,6 +10,7 @@ const Degree = require('../models/degree');
 const Visitor = require('../models/visitor');
 const { isLoggedIn } = require('../middleware');
 var nodeMailer = require('nodemailer');
+var moment = require('moment');
 
 
 /* GET home page. */
@@ -21,7 +22,66 @@ router.get('/tex', (req, res) => {
   res.redirect('/');
 })
 
+// POST request listener to convert the user id to qr code and mail it to the user
+router.post("/scan", async (req, res) => {
+  const pass = process.env.MAIL_PASSWORD;
+  console.log(req.body);
+    let newVisitor = new Visitor(req.body);
+    await newVisitor.save();
 
+  const url =  "http://amman.marifetedu.com/visitor/" + newVisitor._id.toString();
+
+  // If the input is null return "Empty Data" error
+  if (newVisitor.length === 0) res.send("Empty Data!");
+  
+  // Let us convert the input stored in the url and return it as a representation of the QR Code image contained in the Data URI(Uniform Resource Identifier)
+  // It shall be returned as a png image format
+  // In case of an error, it will save the error inside the "err" variable and display it
+  //checking if there is an email
+
+  if (req.body.email == ''){
+    qr.toDataURL(url, (err, src) => {
+      if (err) res.send("Error occured")
+
+      res.set('src', src);
+      res.render("visitor", { src });
+    })
+  } else {
+    qr.toDataURL(url, (err, src) => {
+      if (err) res.send("Error occured")
+
+      res.set('src', src);
+
+      res.render("visitor", { src });
+
+      let transporter = nodeMailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, //use ssl
+        auth: {
+            user: 'tex@marifetedu.com',
+            pass: pass
+        }
+    });
+    let mailOptions = {
+        from: 'tex@marifetedu.com', // sender address
+        to: req.body.email, // list of receivers
+        subject: 'بطاقة معرض TEX', // Subject line
+        text: 'Marifet', // plain text body
+        html: '<h1> شكرا </h1> <p> لقد تم حجز مقعد لك في المعرض يرجى الاحتفاظ بالرمز من خلال صورة أو على بريدك الالكتروني</p> <br> <img src="' + src + '"> <br> <a href="'+ url +'">اضغط هنا لمشاهدت معلوماتك</a> ', // html body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log("Message sent: %s", info.messageId);
+
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+  });
+  }
+});
 
 // get for showing the sign up form
 // post for registering the university 
@@ -36,12 +96,12 @@ router.get('/visitor/:id', async(req, res) => {
       //if you are not logged in as a university show the qr code and simple message
       const { id } = req.params;
       const foundVisitor = await Visitor.findById(id);
-      const time = moment(visitor.dateOfBirth);
+      const time = moment(foundVisitor.dateOfBirth);
       const dob = time.format("DD/MM/YYYY");
       const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
       qr.toDataURL(qrurl, (err, src) => {
         if (err) res.send("Error occured")
-        res.render('visitor', {visitor , dob, src});
+        res.render('visitor', {foundVisitor , dob, src});
       })
       } else {
       //else check which university saw this student and record that to the database and render the info so the uni can register the degree
