@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const University = require('./university')
+const User = require('./users')
 const Schema = mongoose.Schema;
 
 
@@ -7,7 +7,7 @@ var degreeSchema = new Schema({
     text: String,
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'University'
+        ref: 'User'
     }
 });
 

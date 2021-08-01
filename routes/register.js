@@ -2,7 +2,7 @@ const passport = require('passport');
 
 const express = require('express'),
       router  = express.Router(),
-      University = require('../models/university');
+      University = require('../models/users');
       
 const { isLoggedIn } = require('../middleware');
 

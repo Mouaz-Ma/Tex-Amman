@@ -98,6 +98,10 @@ html{
     padding-right: none !important;
   }
 
+  .iti{
+    width: -webkit-fill-available;
+  }
+
   input::placeholder{
     color: oldlace !important;
   }
