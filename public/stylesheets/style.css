@@ -1,0 +1,208 @@
+/* font */
+
+@font-face {
+  font-family: 'aljazeera';
+  src: url('Al-Jazeera-Arabic Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+
+html{
+  font-family: 'Al-Jazeera-Arabic', Bold, Bold;
+  overflow-x: hidden;
+}
+
+
+#firstRow{
+  background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url(../images/istanbul-bosphorus-bridge-at-sunset-with-car-traff-HHLNF7M.jpg);
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;  
+  box-sizing: border-box;
+  padding-bottom: 5%;
+}
+
+
+
+.product-device::before {
+  position: absolute;
+  top: 10%;
+  right: 10px;
+  bottom: 10%;
+  left: 10px;
+  content: "";
+  background-color: rgba(255, 255, 255, .1);
+  border-radius: 5px;
+}
+
+.product-device-2 {
+  top: -25%;
+  right: auto;
+  bottom: 0;
+  left: 5%;
+  background-color: #e5e5e5;
+}
+
+
+/*
+ * Extra utilities
+ */
+
+.flex-equal > * {
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    flex: 1;
+  }
+}
+
+
+/* social icons */
+.fab{
+  font-size: 25px;
+  color: aliceblue;
+  }
+  
+  .fa-facebook:hover {
+    color: #4267B2;
+  }
+  
+  .fa-youtube:hover {
+    color: #FF0000;
+  }
+  
+  .fa-instagram:hover {
+    color: #fb3958;
+  }
+
+  .fa-whatsapp:hover {
+    color: #25D366;
+  }
+  
+  .white{
+    color: #F2F3F3;
+  }
+
+  .form-control{
+    margin-top: 10px;
+    background: transparent;
+    outline: none;
+    border-bottom: 1px solid oldlace;
+    color: oldlace;
+  }
+
+  #email{
+    margin-bottom: 10px !important;
+  }
+
+  #phone{
+    padding-right: none !important;
+  }
+
+  input::placeholder{
+    color: oldlace !important;
+  }
+
+  /* submit btn */
+  #generator{
+    margin-top: 10px;
+    background-color: transparent;
+    border: 1px solid #007DA6;
+    cursor: pointer;
+  }
+  
+  #generator:hover{
+    background-color: #007DA6;
+  }
+
+  /* footer */
+
+  #footer{
+    background-color: #007da6
+  }
+
+  /* whats App btn  */
+
+#whatsAppBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; 
+}
+
+#whatsAppImage{
+  max-width: 100%;
+  height: 75px;
+}
+
+/* list style  */
+
+ul{
+  list-style-type: square;
+  color: #1989ae;
+}
+
+/* logos section */
+
+#aydin{
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#istnye{
+  border: none;
+  height: 200px;
+  width: 300px;
+}
+
+.aydingImage{
+  border: none;
+  height: 200px;
+  width: 200px;
+}
+
+.sponsorsTitle{
+  font-size: larger;
+  display:inline-block;
+  font-weight: 400;
+  border-bottom: 2px solid #007da6;
+  padding-bottom:8px;
+}
+
+/* gray scale logo effect  */
+.friend-logo {
+  height: 150px;
+  width: auto;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  opacity: .6;
+  -webkit-transition: .6s;
+  -moz-transition: .6s;
+  transition: .6s;
+}
+
+.friend-logo:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  margin-top: -5px;
+  box-shadow: 0px 18px 22px -15px rgba(0,0,0,0.3);
+}
+
+#locationFooter a{
+  text-decoration: none;
+}
+
+.footerIcons{
+  color: #1989ae;
+  font-size: 25px;
+}
+
+.textLocation{
+  color: darkslategray;
+}
+
+#backgroundColor{
+  background-color: aliceblue;
+}
+ 
+.textBlueK3ki{
+  color: #007da6;
+}
