@@ -5,6 +5,7 @@ const User = require ('../models/users');
 const Degree = require('../models/degree');
 const Visitor = require('../models/visitor');
 const { isLoggedIn } = require('../middleware');
+var nodeMailer = require('nodemailer');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
