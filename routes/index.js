@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var qr = require("qrcode");
+require('dotenv').config({path: __dirname + '/.env'})
 const User = require ('../models/users');
 const Degree = require('../models/degree');
 const Visitor = require('../models/visitor');
 const { isLoggedIn } = require('../middleware');
 var nodeMailer = require('nodemailer');
-require('dotenv').config({path: __dirname + '/.env'})
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
