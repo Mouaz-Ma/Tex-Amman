@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== "production") {
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-require('dotenv').config({path: __dirname + '/.env'})
+require('dotenv').config({path: __dirname + '/.env'});
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var qr = require("qrcode");
@@ -105,6 +105,66 @@ app.use('/', indexRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
+});
+
+// POST request listener to convert the user id to qr code and mail it to the user
+app.post("/scan", async (req, res) => {
+  console.log(req.body);
+    let newVisitor = new Visitor(req.body);
+    await newVisitor.save();
+
+  const url =  "http://amman.marifetedu.com/visitor/" + newVisitor._id.toString();
+
+  // If the input is null return "Empty Data" error
+  if (newVisitor.length === 0) res.send("Empty Data!");
+  
+  // Let us convert the input stored in the url and return it as a representation of the QR Code image contained in the Data URI(Uniform Resource Identifier)
+  // It shall be returned as a png image format
+  // In case of an error, it will save the error inside the "err" variable and display it
+  //checking if there is an email
+
+  if (req.body.email == ''){
+    qr.toDataURL(url, (err, src) => {
+      if (err) res.send("Error occured")
+
+      res.set('src', src);
+      res.render("/visitor", { src });
+    })
+  } else {
+    qr.toDataURL(url, (err, src) => {
+      if (err) res.send("Error occured")
+
+      res.set('src', src);
+
+      res.render("/visitor", { src });
+
+      let transporter = nodeMailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, //use ssl
+        auth: {
+            user: 'tex@marifetedu.com',
+            pass: procces.env.MAIL_PASSWORD
+        }
+    });
+    let mailOptions = {
+        from: 'tex@marifetedu.com', // sender address
+        to: req.body.email, // list of receivers
+        subject: 'بطاقة معرض TEX', // Subject line
+        text: 'Marifet', // plain text body
+        html: '<h1> شكرا </h1> <p> لقد تم حجز مقعد لك في المعرض يرجى الاحتفاظ برمز ال QR من خلال صورة أو على بريدك الالكتروني</p> <br> <img src="' + src + '"> <br> <a href="'+ url +'">اضغط هنا لمشاهدت معلوماتك</a> ', // html body
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log("Message sent: %s", info.messageId);
+
+        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    });
+  });
+  }
 });
 
 // error handler
