@@ -46,6 +46,14 @@ a{
     color: oldlace;
 }
 
+#phone{
+  padding-right: none !important;
+}
+
+.iti{
+  width: -webkit-fill-available;
+}
+
 a:hover{
     color: oldlace;
 }

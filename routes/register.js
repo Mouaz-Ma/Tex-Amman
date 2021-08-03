@@ -20,7 +20,7 @@ router.post('/register', async(req, res) => {
         console.log(req.body);
         const { email, username, password } = req.body;
         const university = new University ({email, username});
-        if(req.body.adminCode === "secretK3ki1992"){
+        if(req.body.adminCode === process.env.ADMIN_SECRERT){
             university.isAdmin = true;
         }
         await University.register(university, password);

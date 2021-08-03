@@ -1,49 +1,55 @@
-require('dotenv').config({path: __dirname + '/.env'});
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var qr = require("qrcode");
-var nodeMailer = require('nodemailer');
-
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const fs = require('fs');
+require('dotenv').config({
+  path: __dirname + '/.env'
+});
+const createError = require('http-errors'),
+      express = require('express'),
+      path = require('path'),
+      cookieParser = require('cookie-parser'),
+      logger = require('morgan'),
+      qr = require("qrcode"),
+      nodeMailer = require('nodemailer'),
+      session = require('express-session'),
+      MongoStore = require('connect-mongo'),
+      flash = require('connect-flash'),
+      methodOverride = require('method-override'),
+      fs = require('fs');
+      passport = require('passport'),
+      localStrategy = require('passport-local'),
+      University = require('./models/users');
+      moment = require('moment');
 // canvas setup
-const { createCanvas, loadImage } = require('canvas')
+const {
+  createCanvas,
+  loadImage
+} = require('canvas')
 
+const indexRouter = require('./routes/index');
+const registerRoutes = require('./routes/register')
 
-const passport = require('passport');
-const localStrategy = require('passport-local');
-const University = require('./models/users');
+const mongoose = require('mongoose');
 
-
-var moment = require('moment');
-
-var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/users');
-var registerRoutes = require('./routes/register')
-var mongoose=require('mongoose');
-
-const User = require ('./models/users');
+const User = require('./models/users');
 const Degree = require('./models/degree');
 const Visitor = require('./models/visitor');
-const { isLoggedIn } = require('./middleware');
+const {
+  isLoggedIn
+} = require('./middleware');
 
-//mongoose.connect('mongodb://127.0.0.1:27017/k3ki', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+// mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+//   useFindAndModify: false
+// });
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
-    console.log("Database connected");
+  console.log("Database connected");
 });
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,24 +57,26 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const store = new MongoStore({
   mongoUrl: process.env.DB_URL,
   secret: process.env.SESSION_SECRET,
-   touchAfter: 24 * 3600
+  touchAfter: 24 * 3600
 })
 
-store.on("error", function(e){
+store.on("error", function (e) {
   console.log("SESSION STORE ERROR", e)
 })
 
-const sessionOptions = { 
+const sessionOptions = {
   store,
-  secret: process.env.SESSION_SECRET , 
-  resave: false, 
+  secret: process.env.SESSION_SECRET,
+  resave: false,
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
@@ -94,22 +102,18 @@ app.use((req, res, next) => {
   next();
 })
 
-
-
 app.use('/', registerRoutes);
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 
-
-
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -126,5 +130,3 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log("Server at 5000"));
 
 //testing token
-
-
