@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Degree = require('./degree');
 const Schema = mongoose.Schema;
 
-const opts = { toJSON: { virtuals: true } };
+
 const userSchema = new mongoose.Schema({
     Name: {
         type: String,
@@ -15,10 +15,12 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    degrees: [{
-        type : Schema.Types.ObjectId,
-        ref: 'Degree'
-     }],
+    degree: {
+        type : String
+    },
+    seenBy: {
+        type: String
+    },
     updated: { 
         type: Date,
         default: Date.now 
@@ -28,8 +30,6 @@ const userSchema = new mongoose.Schema({
         default: false
     },
 
-}, opts)
+})
 
-const Product = mongoose.model('Visitor', userSchema);
-
-module.exports = Product;
+module.exports = mongoose.model('Visitor', userSchema);

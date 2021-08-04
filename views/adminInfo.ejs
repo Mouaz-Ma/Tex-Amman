@@ -101,7 +101,7 @@
             </button>
           </div>
           <% } %>
-          <form action="/user/<%=foundVisitor._id%>?_method=PUT" method="POST">
+          <form action="/user/<%=foundVisitor._id%>" method="POST">
             <div class="row">
               <div class="row text-center">
                 <div class="col-md-6">
@@ -124,7 +124,7 @@
                     required>
                   <!-- telephone number  -->
                   <label for="phone">رقم التيليفون</label>
-                  <input class="form-control" id="phone" type="tel" name="telephonNumber"
+                  <input class="form-control" id="phone" type="number" name="telephonNumber"
                     value="<%= foundVisitor.telephonNumber %>" required>
 
 
@@ -139,6 +139,11 @@
           <div class="mt-5">
             <form action="/user/<%=foundVisitor._id%>/print" method="GET">
               <button class="btn btn-secondary btn-lg btn-block" type="submit"> Print ticket</button>
+            </form>
+          </div>
+          <div class="mt-5">
+            <form action="/user/download" method="GET">
+              <button class="btn btn-secondary btn-lg btn-block" type="submit"> Download All Visitor Data</button>
             </form>
           </div>
         </div>
