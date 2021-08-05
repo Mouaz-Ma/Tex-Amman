@@ -109,6 +109,56 @@ app.use('/', registerRoutes);
 app.use('/', indexRouter);
 //app.use('/users', usersRouter);
 
+// the search 
+app.get('/search', function(req, res, next){
+  let q = req.query.q;
+  // partial text search using regex
+  Visitor.find({
+    Name: {
+      $regex: new RegExp(q)
+    }
+  }, {
+    __v: 0
+  }, function(err, data) {
+    let realData = [];
+    for(var i = 0 ; i < data.length ; i++){
+      if (i != 0 && data[i].Name != data[i-1].Name){
+        realData.unshift(data[i]);
+      }
+    }
+    if (realData.length == 0){
+      let qNumber = parseInt(q);
+      console.log(typeof(q))
+      console.log(typeof(qNumber))
+      Visitor.aggregate([{$addFields:{a_s:{$convert:{input:'$telephonNumber',to:'String'}}}},{$match:{a_s: new RegExp(qNumber)}}])
+      Visitor.find({
+        phoneNumber: {
+          a_s: new RegExp(q)
+        }
+      }, {
+        __v: 0
+      }, function(err, data) {
+        if (err) {
+          req.flash('err', err.message);
+          res.redirect(req.body.referer);
+        } else {
+          let realData = [];
+          console.log(data);
+          for(var i = 0 ; i < data.length ; i++){
+            if (i != 0 && data[i].telephonNumber!= data[i-1].telephonNumber){
+              realData.unshift(data[i]);
+            }
+          }
+        }
+      })
+    } else {
+      res.json(realData);
+      console.log(realData);
+    }
+    // console.log(data);
+  }).limit(10);
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

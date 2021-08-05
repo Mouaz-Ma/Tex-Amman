@@ -146,6 +146,14 @@
               <button class="btn btn-secondary btn-lg btn-block" type="submit"> Download All Visitor Data</button>
             </form>
           </div>
+          <div class="mt-5">
+            <form>
+              <input type="text" onkeyup="showResults(this.value)" placeholder="Search">
+              <div style="position: relative;width: 25%;top:-1px">
+                <div class="border" id="search-results"></div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -163,6 +171,52 @@
 
 
   </div>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- search scripts -->
+<script>
+  var showResults = debounce(function(arg){
+    var value =arg.trim();
+    if(value == "" || value.length <=0 ){
+      $("#search-results").fadeOut();
+      return;
+    } else {
+      $("search-results").fadeIn();
+    };
+    var jqxhr = $.get('/search?q=' + value, function(data){
+      $("search-results").html('');
+    }).done(function(data){
+      if(data.length == 0){
+        $('#search-results').append('<p>no results</p>');
+      } else {
+        console.log(data);
+        data.forEach(x => {
+          $("#search-results").append('<p></p>' + x.Name);
+        })
+      }
+    })
+    .fail(function(err){
+      console.log(err);
+    })
+  }, 200);
+
+  function debounce(func, wait, immediate){
+    var timeout;
+    return function(){
+      var context = this;
+       args = arguments;
+       var later = function () {
+         timeout = null;
+         if(!immediate) func.apply(context, args);
+       };
+       var callNow = immediate && !timeout;
+       clearTimeout(timeout);
+       timeout = setTimeout(later, wait);
+       if (callNow) func.apply(context, args);
+    };
+  };
+</script>
+
   <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
   </script>
@@ -175,15 +229,16 @@
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
   </script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-  </script>
+  </script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
   </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
   </script>
+ 
 
 </body>
 
