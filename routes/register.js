@@ -2,7 +2,7 @@ const passport = require('passport');
 
 const express = require('express'),
       router  = express.Router(),
-      University = require('../models/users');
+      User = require('../models/users');
       
 const { isLoggedIn } = require('../middleware');
 
@@ -17,22 +17,33 @@ router.get('/register', (req, res) => {
 
 router.post('/register', async(req, res) => {
     try{
-        console.log(req.body);
-        const { email, username, password } = req.body;
-        const university = new University ({email, username});
-        if(req.body.adminCode === process.env.ADMIN_SECRERT){
-            university.isAdmin = true;
+        if(req.body.adminCode != ""){
+            const { email, username, password } = req.body;
+            const user = new User ({email, username});
+            if(req.body.adminCode === process.env.ADMIN_SECRERT){
+                user.isAdmin = true;
+            await User.register(user, password);
+            req.flash('success', 'Succesfully made a new Admin User');
+            res.redirect('/register');
+            console.log("admin registered")
+        } else {
+            req.flash('error', 'Wrong Admin Code');
+            res.redirect('/register');
+            console.log("admin register error")
         }
-        await University.register(university, password);
-        console.log(university);
-        req.flash('success', 'Succesfully made a new user for university');
-        res.redirect('/register');
+        } else {
+            const { email, username, password } = req.body;
+            const user = new User ({email, username});
+            await User.register(user, password);
+            req.flash('success', 'Succesfully made a new user for university');
+            res.redirect('/register');
+            console.log("university registered")
+        }
     }
     catch(e) {
         req.flash('error', e.message);
         res.redirect('/register');
     }
-
 });
 
 router.get('/login', (req, res) => {

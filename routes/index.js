@@ -7,6 +7,7 @@ require('dotenv').config()
 const express = require('express'),
   router = express.Router(),
   qr = require("qrcode"),
+  fs = require('fs'),
   User = require('../models/users'),
   Degree = require('../models/degree'),
   Visitor = require('../models/visitor'),
@@ -17,12 +18,11 @@ const express = require('express'),
   excel = require('exceljs'),
   moment = require('moment');
 
+// canvas setup
 const {
-  Parser,
-  transforms: {
-    unwind
-  }
-} = require('json2csv');
+  createCanvas,
+  loadImage
+} = require('canvas')
 
 
 /* GET home page. */
@@ -212,7 +212,7 @@ router.post("/user/:id", isLoggedIn, async (req, res) => {
       newVisitor.seenBy = req.user.username;
       newVisitor.degree = req.body.degree;
       newVisitor.attended = true;
-      newVisitor.save();   
+      newVisitor.save();
       req.flash('success', 'The Degree desired has been registered');
       res.redirect('/visitor/' + newVisitor._id);
       }
@@ -238,17 +238,17 @@ router.get("/user/:id/print", async (req, res) => {
     const context = canvas.getContext('2d');
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    context.font = '50px serif';
+    context.font = '80px serif';
     context.textAlign = 'center';
     context.fillStyle = '#000000';
-    context.fillText(text, 350, 180)
+    context.fillText(text, 380, 180)
     const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
     qr.toDataURL(qrurl, (err, src) => {
       if (err) {
         res.send("Error occured")
       } else {
         loadImage(src).then(image => {
-          context.drawImage(image, 270, 200);
+          context.drawImage(image, 280, 200);
           const buffer = canvas.toBuffer('image/jpeg');
           fs.writeFileSync('image.jpeg', buffer);
           res.download('image.jpeg');

@@ -148,11 +148,19 @@
           </div>
           <div class="mt-5">
             <form>
-              <input type="text" onkeyup="showResults(this.value)" placeholder="Search">
+              <input type="text" onkeyup="showResultsName(this.value)" placeholder="Search by name">
               <div style="position: relative;width: 25%;top:-1px">
                 <div class="border" id="search-results"></div>
               </div>
             </form>
+
+            <form>
+              <input type="text" onkeyup="showResultsNumber(this.value)" placeholder="Search by number">
+              <div style="position: relative;width: 25%;top:-1px">
+                <div class="border" id="search-results"></div>
+              </div>
+            </form>
+
           </div>
         </div>
       </div>
@@ -175,7 +183,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <!-- search scripts -->
 <script>
-  var showResults = debounce(function(arg){
+  var showResultsName = debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
       $("#search-results").fadeOut();
@@ -183,7 +191,7 @@
     } else {
       $("search-results").fadeIn();
     };
-    var jqxhr = $.get('/search?q=' + value, function(data){
+    var jqxhr = $.get('/search/name?q=' + value, function(data){
       $("search-results").html('');
     }).done(function(data){
       if(data.length == 0){
@@ -192,6 +200,31 @@
         console.log(data);
         data.forEach(x => {
           $("#search-results").append('<p></p>' + x.Name);
+        })
+      }
+    })
+    .fail(function(err){
+      console.log(err);
+    })
+  }, 200);
+
+  var showResultsNumber= debounce(function(arg){
+    var value =arg.trim();
+    if(value == "" || value.length <=0 ){
+      $("#search-results").fadeOut();
+      return;
+    } else {
+      $("search-results").fadeIn();
+    };
+    var jqxhr = $.get('/search/number?q=' + value, function(data){
+      $("search-results").html('');
+    }).done(function(data){
+      if(data.length == 0){
+        $('#search-results').append('<p>no results</p>');
+      } else {
+        console.log(data);
+        data.forEach(x => {
+          $("#search-results").append('<p></p>' + x.telephonNumber);
         })
       }
     })
