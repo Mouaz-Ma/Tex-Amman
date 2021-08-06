@@ -238,7 +238,7 @@ router.get("/user/:id/print", async (req, res) => {
     const context = canvas.getContext('2d');
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, canvas.width, canvas.height);
-    context.font = '80px serif';
+    context.font = '50px serif';
     context.textAlign = 'center';
     context.fillStyle = '#000000';
     context.fillText(text, 380, 180)
