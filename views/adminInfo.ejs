@@ -193,9 +193,9 @@
   var showResultsName = debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
-      $("#search-results-numbers").detach();
+      $("#search-results-numbers").fadeToggle();
     } else {
-      $("search-results-names").slideToggle()
+      $("search-results-names").fadeToggle()
     };
     var jqxhr = $.get('/search/name?q=' + value, function(data){
       $("search-results-names").html('');
@@ -205,7 +205,7 @@
       } else {
         console.log(data);
         data.forEach(x => {
-          $("#search-results-names").append('<a href="http://amman.marifetedu.com//visitor/'+ x._id +'"> '+ x.Name +'</a><br>');
+          $("#search-results-names").append('<a href="http://amman.marifetedu.com/visitor/'+ x._id +'"> '+ x.Name +'</a><br>');
         })
       }
     })
@@ -217,10 +217,10 @@
   var showResultsNumber= debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
-      $("#search-results-numbers").fadeOut();
+      $("#search-results-numbers").fadeToggle();
       return;
     } else {
-      $("search-results-numbers").fadeIn();
+      $("search-results-numbers").fadeToggle();
     };
     var jqxhr = $.get('/search/number?q=' + value, function(data){
       $("search-results-numbers").html('');
@@ -230,7 +230,7 @@
       } else {
         console.log(data);
         data.forEach(x => {
-          $("#search-results-numbers").append('<a href="http://amman.marifetedu.com//visitor/'+ x._id +'"> '+x.Name + ' <br> ' + x.telephonNumber +'</a><br>');
+          $("#search-results-numbers").append('<a href="http://amman.marifetedu.com/visitor/'+ x._id +'"> '+x.Name + ' <br> ' + x.telephonNumber +'</a><br>');
         })
       }
     })
