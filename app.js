@@ -46,6 +46,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
 });
 // mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
 
+// Define escapeRegex function for search feature
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -100,6 +105,7 @@ app.use(flash());
 app.use(methodOverride('_method'))
 
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
@@ -111,47 +117,49 @@ app.use('/', indexRouter);
 
 // the search 
 app.get('/search/name', function(req, res, next){
-  let q = req.query.q;
-  // partial text search using regex
-  Visitor.find({
-    Name: {
-      $regex: new RegExp(q)
+  // let q = req.query.q;
+  const regex = new RegExp(escapeRegex(req.query.q), 'gi');
+  Visitor.find({$or: [{Name: regex,}, {"visitor.Name":regex}]}, function(err, data){
+    if(err){
+        console.log(err);
+    } else {
+        if(data.length < 1){
+            noMatch = "No result";
+        } else {
+          let realData = [];
+          for(var i = 0 ; i < data.length ; i++){
+            if (i != 0 && data[i].Name != data[i-1].Name){
+              realData.unshift(data[i]);
+            }
+          }
+          res.json(realData);
+          console.log(realData);
+        }
     }
-  }, {
-    __v: 0
-  }, function(err, data) {
-    let realData = [];
-    for(var i = 0 ; i < data.length ; i++){
-      if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.unshift(data[i]);
-      }
-    }
-    res.json(realData);
-    console.log(realData);
-    // console.log(data);
   }).limit(10); 
 });
 
 app.get('/search/number', function(req, res, next){
-  let q = req.query.q;
-  // partial text search using regex
-  Visitor.find({
-    telephonNumber: {
-      $regex: new RegExp(q)
-    }
-  }, {
-    __v: 0
-  }, function(err, data) {
-    let realData = [];
-    for(var i = 0 ; i < data.length ; i++){
-      if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.unshift(data[i]);
+    // let q = req.query.q;
+    const regex = new RegExp(escapeRegex(req.query.q), 'gi');
+    Visitor.find({$or: [{telephonNumber: regex,}, {"visitor.telephonNumber":regex}]}, function(err, data){
+      if(err){
+          console.log(err);
+      } else {
+          if(data.length < 1){
+              noMatch = "No result";
+          } else {
+            let realData = [];
+            for(var i = 0 ; i < data.length ; i++){
+              if (i != 0 && data[i].Name != data[i-1].Name){
+                realData.unshift(data[i]);
+              }
+            }
+            res.json(realData);
+            console.log(realData);
+          }
       }
-    }
-    res.json(realData);
-    console.log(realData);
-    // console.log(data);
-  }).limit(10); 
+    }).limit(10);  
 });
 
 // catch 404 and forward to error handler

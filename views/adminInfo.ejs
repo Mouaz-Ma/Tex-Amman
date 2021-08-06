@@ -143,7 +143,7 @@
           </div>
           <div class="mt-5">
             <form action="/user/download" method="GET">
-              <button class="btn btn-secondary btn-lg btn-block" type="submit"> Download All Visitor Data</button>
+              <button class="btn btn-secondary btn-lg btn-block mb-5" type="submit"> Download All Visitor Data</button>
             </form>
           </div>
           <div class="row">
@@ -193,9 +193,9 @@
   var showResultsName = debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
-      $("#search-results-names").fadeOut();
+      $("#search-results-numbers").detach();
     } else {
-      $("search-results-names").fadeIn();
+      $("search-results-names").slideToggle()
     };
     var jqxhr = $.get('/search/name?q=' + value, function(data){
       $("search-results-names").html('');
