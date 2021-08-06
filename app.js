@@ -38,13 +38,13 @@ const {
   isLoggedIn
 } = require('./middleware');
 
-// mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true,
-//   useFindAndModify: false
-// });
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
+mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+});
+// mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -116,7 +116,7 @@ app.get('/search/name', function(req, res, next){
   // partial text search using regex
   Visitor.find({
     Name: {
-      $regex: new RegExp(q)
+      $regex: new RegExp(req.query.q),
     }
   }, {
     __v: 0
@@ -124,7 +124,7 @@ app.get('/search/name', function(req, res, next){
     let realData = [];
     for(var i = 0 ; i < data.length ; i++){
       if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.unshift(data[i]);
+        realData.push(data[i]);
       }
     }
     res.json(realData);
@@ -146,7 +146,7 @@ app.get('/search/number', function(req, res, next){
     let realData = [];
     for(var i = 0 ; i < data.length ; i++){
       if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.unshift(data[i]);
+        realData.push(data[i]);
       }
     }
     res.json(realData);
