@@ -123,7 +123,7 @@ app.get('/search/name', function(req, res, next){
     let realData = [];
     for(var i = 0 ; i < data.length ; i++){
       if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.push(data[i]);
+        realData.unshift(data[i]);
       }
     }
     res.json(realData);
@@ -145,7 +145,7 @@ app.get('/search/number', function(req, res, next){
     let realData = [];
     for(var i = 0 ; i < data.length ; i++){
       if (i != 0 && data[i].Name != data[i-1].Name){
-        realData.push(data[i]);
+        realData.unshift(data[i]);
       }
     }
     res.json(realData);

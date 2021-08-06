@@ -146,21 +146,28 @@
               <button class="btn btn-secondary btn-lg btn-block" type="submit"> Download All Visitor Data</button>
             </form>
           </div>
-          <div class="mt-5">
-            <form>
-              <input type="text" onkeyup="showResultsName(this.value)" placeholder="Search by name">
-              <div style="position: relative;width: 25%;top:-1px">
-                <div class="border" id="search-results"></div>
-              </div>
-            </form>
-
-            <form>
-              <input type="text" onkeyup="showResultsNumber(this.value)" placeholder="Search by number">
-              <div style="position: relative;width: 25%;top:-1px">
-                <div class="border" id="search-results"></div>
-              </div>
-            </form>
-
+          <div class="row">
+            <div class="col-md-6">
+              <form>
+                <input type="text" aria-label="Search" class="form-control" onkeyup="showResultsName(this.value)" placeholder="Search by name">
+                <div>
+                  <div class="border mx-auto">
+                    <div id="search-results-names"></div>
+ 
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <form>
+                <input type="text" aria-label="Search" class="form-control" onkeyup="showResultsNumber(this.value)" placeholder="Search by number">
+                <div>
+                  <div class="border mx-auto">
+                    <div id="search-results-numbers"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -186,20 +193,19 @@
   var showResultsName = debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
-      $("#search-results").fadeOut();
-      return;
+      $("#search-results-names").fadeOut();
     } else {
-      $("search-results").fadeIn();
+      $("search-results-names").fadeIn();
     };
     var jqxhr = $.get('/search/name?q=' + value, function(data){
-      $("search-results").html('');
+      $("search-results-names").html('');
     }).done(function(data){
       if(data.length == 0){
-        $('#search-results').append('<p>no results</p>');
+        $('#search-results-names').append('<p>no results</p>');
       } else {
         console.log(data);
         data.forEach(x => {
-          $("#search-results").append('<p></p>' + x.Name);
+          $("#search-results-names").append('<a href="http://amman.marifetedu.com//visitor/'+ x._id +'"> '+ x.Name +'</a><br>');
         })
       }
     })
@@ -211,20 +217,20 @@
   var showResultsNumber= debounce(function(arg){
     var value =arg.trim();
     if(value == "" || value.length <=0 ){
-      $("#search-results").fadeOut();
+      $("#search-results-numbers").fadeOut();
       return;
     } else {
-      $("search-results").fadeIn();
+      $("search-results-numbers").fadeIn();
     };
     var jqxhr = $.get('/search/number?q=' + value, function(data){
-      $("search-results").html('');
+      $("search-results-numbers").html('');
     }).done(function(data){
       if(data.length == 0){
-        $('#search-results').append('<p>no results</p>');
+        $('#search-results-numbers').append('<p>no results</p>');
       } else {
         console.log(data);
         data.forEach(x => {
-          $("#search-results").append('<p></p>' + x.telephonNumber);
+          $("#search-results-numbers").append('<a href="http://amman.marifetedu.com//visitor/'+ x._id +'"> '+x.Name + ' <br> ' + x.telephonNumber +'</a><br>');
         })
       }
     })
