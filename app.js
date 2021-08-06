@@ -38,13 +38,13 @@ const {
   isLoggedIn
 } = require('./middleware');
 
-mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
-// mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
+// mongoose.connect('mongodb://127.0.0.1:27017/k3ki', {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+//   useFindAndModify: false
+// });
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false , useCreateIndex: true});
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
