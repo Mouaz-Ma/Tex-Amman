@@ -1,0 +1,168 @@
+<div class="row text-center" id="locationFooter">
+    <div class="col-md-12 mb-3">
+              <!--Map & Contact Info.-->
+
+              <section id="contact-sec">
+
+                <div class="location">
+    
+                    <div id="map"></div>
+    
+                    <div class="location-bg">
+    
+                        <div class="location-info">
+    
+                            <h3><span><i class="fa fa-flag" aria-hidden="true"></i></span>EVENT LOCATION</h3>
+    
+                            <p><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>Lorem ipsum doler 101 lorem st.
+    
+                                <br> New York, NY 10001, United States
+    
+                            </p>
+    
+                            <p><span><i class="fa fa-phone" aria-hidden="true"></i></span><a href="tel:+18888568989" title="+1 888-856-8989">+1 888-856-8989</a></p>
+    
+                            <p><span><i class="fas fa-envelope-square" aria-hidden="true"></i></span><a href="mailto:eventcamppremium@gmail.com" title="eventcamppremium@gmail.com">eventcamppremium@gmail.com</a></p>
+    
+                            <div class="btn-register"><a href="#" class="view">register for the event</a></div>
+    
+                        </div>
+    
+    
+    
+                    </div>
+    
+                </div>
+    
+                </div>
+    
+    
+    
+            </section>
+    
+            <!--END Map & Contact Info.-->
+    </div>
+
+  </div>
+  <div id="whatsAppBtn">
+    <a href="https://wa.me/905050710592" class="btn whatsApp"><img id="whatsAppImage"
+        src="https://global-uploads.webflow.com/601befbd3e6c39d9b373aa94/606aecfac9846644d0c6d979_whatsapp.svg"
+        alt=""></a>
+  </div>
+
+  <div class="footer-clean bg-dark">
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-3 col-md-3 item">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Web design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Hosting</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 col-md-3 item">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="#">Company</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Legacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 col-md-3 item">
+                    <h3>Careers</h3>
+                    <ul>
+                        <li><a href="#">Job openings</a></li>
+                        <li><a href="#">Employee success</a></li>
+                        <li><a href="#">Benefits</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                  <div class="">
+                    <a href="https://www.facebook.com/marifetedu/" class="btn facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.youtube.com/channel/UCI6lLBCjZqjOQI_UG4_ZQSA" class="btn youtube"><i
+                        class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/marifetedu/?hl=en" class="btn Instagram"><i
+                        class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/905050710592" class="btn whatsApp"><i class="fab fa-whatsapp"></i></a>
+                  </div>
+                  <div class=""><p class="copyright">Company Name © 2018</p></div>
+                   
+                  </div>
+        
+                </div>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+    <!-- MAP js -->
+
+    <script>
+
+      function initMap() {
+
+          var uluru = {
+
+              lat: 43.1561681,
+
+              lng: -75.8449946
+
+          };
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+
+              zoom: 10,
+
+              center: uluru
+
+          });
+
+          var marker = new google.maps.Marker({
+
+              position: uluru,
+
+              map: map
+
+          });
+
+      }
+
+  </script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnBukuPx3MQ3bJLLD-e4NKHL56g1nsRXM&callback=initMap">
+
+  </script>
+
+  <!-- END MAP js -->
+
+<script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+
+ <!-- script for the phone number flags -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+ <script>
+   const phoneInputField = document.querySelector("#phone");
+   const phoneInput = window.intlTelInput(phoneInputField, {
+     preferredCountries: ["JO", "SY", "EG"],
+     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+   });
+ </script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+crossorigin="anonymous"></script>
+</body>
+
+</html>

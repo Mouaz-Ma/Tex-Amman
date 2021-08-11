@@ -15,12 +15,10 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    degree: {
-        type : String
-    },
-    seenBy: {
-        type: String
-    },
+    degree: [{
+        type : Schema.Types.ObjectId,
+        ref: 'Degree'
+    }],
     updated: { 
         type: Date,
         default: Date.now 
