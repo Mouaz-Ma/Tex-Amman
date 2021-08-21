@@ -7,4 +7,4 @@ for running locally you need:
 2- .env file with the enviroment variables set.
 
 
-for any questions please contact Mr. Alaa or you can contact me directly at mouaz-m@hotmail.com.
+for any questions please contact Mr. Alaa 
