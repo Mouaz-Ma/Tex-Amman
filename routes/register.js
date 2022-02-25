@@ -24,7 +24,7 @@ router.post('/register', async(req, res) => {
                 user.isAdmin = true;
             await User.register(user, password);
             req.flash('success', 'Succesfully made a new Admin User');
-            res.redirect('/register');
+            res.redirect('/');
             console.log("admin registered")
         } else {
             req.flash('error', 'Wrong Admin Code');

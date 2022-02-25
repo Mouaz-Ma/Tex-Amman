@@ -1,12 +1,8 @@
 /* font */
 
-@font-face {
-  font-family: 'aljazeera';
-  src: url('Al-Jazeera-Arabic Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
-}
 
-html{
-  font-family: 'Al-Jazeera-Arabic', Bold, Bold;
+html,body{
+  font-family: 'Tajawal', sans-serif;
   overflow-x: hidden;
 }
 
@@ -80,6 +76,7 @@ html{
   
   .white{
     color: #F2F3F3;
+    font-weight: 800;
   }
 
   .form-control{
