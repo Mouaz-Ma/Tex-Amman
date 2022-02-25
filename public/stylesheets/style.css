@@ -79,6 +79,11 @@ html,body{
     font-weight: 800;
   }
 
+  .form{
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
   .form-control{
     margin-top: 10px;
     background: transparent;
@@ -220,4 +225,271 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+
+/* adding mobile view */
+@media only screen and (max-width: 600px) {
+  .lead {
+    margin-bottom: 50px;
+  }
+  #imageAsset{
+    height: 80%;
+    width: 50%;
+  }
+}
+
+#imageAsset{
+  height: 80%;
+  width: 80%;
+}
+
+/*-------------------------------------------------
+    16. Map & Contact Info.
+-------------------------------------------------*/
+
+#map{
+
+  height: 600px;
+
+}
+
+.btn-register .view {
+
+  display: initial;
+
+  padding: 25px 90px;
+
+  border: none;
+
+  text-decoration: none !important;
+
+  background: #ffffff;
+
+  vertical-align: middle;
+
+  position: relative;
+
+  z-index: 1;
+
+  font-size: 20px;
+
+  -webkit-backface-visibility: hidden;
+
+  -moz-osx-font-smoothing: grayscale;
+
+  text-transform: uppercase;
+
+  color: #007da6;
+
+  font-weight: bold;
+
+  transition: all 0.5s ease;
+
+}
+
+.btn-register {
+
+  padding: 50px 0px 30px;
+
+}
+
+.btn-register .view:hover{
+
+ padding: 20px 90px; 
+
+}
+
+.location{
+
+  position: relative;
+
+}
+
+.location-bg{
+
+  position: absolute;
+
+  top: 60px;
+
+  left: 90px;
+
+  background-color: #007da6;
+
+}
+
+.location-info{
+
+  color: #ffffff;
+
+  padding: 40px 50px;
+
+}
+
+.location-info h3{
+
+  font-size: 30px;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid #69e0f0;
+
+  padding-bottom: 15px;
+
+}
+
+
+
+.location-info p{
+
+  display: flex;
+
+  font-size: 20px;
+
+  line-height: 36px;
+
+  font-weight: 300;
+
+  padding-top: 20px;
+
+}
+
+.location-info p a{
+
+  font-size: 20px;
+
+  line-height: 50px;
+
+  font-weight: 300;
+
+  color: #ffffff;
+
+}
+
+.location-info p a:hover{
+
+  text-decoration: none;
+
+}
+
+.location-info span{
+
+  padding-right: 20px;
+
+}
+
+.location-info h3 span i{
+
+  background-color: white;
+
+  color:  #007da6;
+
+  position: relative;
+
+}
+
+.location-info h3 span i:after{
+
+  content: "";
+
+  width: 0;
+
+  height: 0;
+
+  position: absolute;
+
+  bottom: -7px;
+
+  right: 13px;
+
+  margin-top: -3px;
+
+  border-width: 10px 10px 0 10px;
+
+  border-style: solid;
+
+  border-color: #ffffff transparent;
+
+}
+
+.location-info p:hover span i {
+
+  background-color: white;
+
+  color:  #007da6;
+
+  position: relative;
+
+}
+
+.location-info p:hover span i:after{
+
+ content: "";
+
+  width: 0;
+
+  height: 0;
+
+  position: absolute;
+
+  bottom: -7px;
+
+  right: 13px;
+
+  margin-top: -3px;
+
+  border-width: 10px 10px 0 10px;
+
+  border-style: solid;
+
+  border-color: #ffffff transparent;
+
+  }
+
+.location-info span i{
+
+  border: 1px solid #ffffff;
+
+  font-size: 20px;
+
+  border-radius: 50%;
+
+  height: 48px;
+
+  padding-top: 14px;
+
+  width: 48px;
+
+  text-align: center;
+
+}
+
+.location-bg {
+    position: inherit;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 575.98px){
+  .location-bg {
+      position: inherit;
+      top: 0;
+      left: 0;
+  }
+  .location-info {
+    color: #ffffff;
+    padding: 40px 10px;
+}
+.location-info h3 {
+  font-size: 25px;
+}
+.location-info p {
+  font-size: 14px;
+  line-height: 25px;
+  font-weight: 400;
+}
+.btn-register .view {
+  padding: 20px 50px;
+  font-size: 14px;
+}
 }
