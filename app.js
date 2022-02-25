@@ -51,6 +51,7 @@ db.once("open", () => {
   console.log("Database connected");
 });
 
+
 const app = express();
 
 // view engine setup
