@@ -470,26 +470,40 @@ input[type=number] {
     left: 0;
 }
 
+.videoPlayer{
+  height: 100%;
+  width: 100%;
+}
+
 @media (max-width: 575.98px){
   .location-bg {
-      position: inherit;
-      top: 0;
-      left: 0;
+    position: inherit;
+    top: 0;
+    left: 0;
   }
+
   .location-info {
     color: #ffffff;
     padding: 40px 10px;
-}
-.location-info h3 {
-  font-size: 25px;
-}
-.location-info p {
-  font-size: 14px;
-  line-height: 25px;
-  font-weight: 400;
-}
-.btn-register .view {
-  padding: 20px 50px;
-  font-size: 14px;
-}
+  }
+
+  .location-info h3 {
+    font-size: 25px;
+  }
+
+  .location-info p {
+    font-size: 14px;
+    line-height: 25px;
+    font-weight: 400;
+  }
+
+  .btn-register .view {
+    padding: 20px 50px;
+    font-size: 14px;
+  }
+
+  .videoPlayer {
+    height: 50%;
+    width: 100%;
+  }
 }
