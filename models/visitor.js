@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    seenBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 
 })
 

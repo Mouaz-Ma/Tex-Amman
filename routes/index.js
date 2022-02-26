@@ -106,7 +106,7 @@ router.post("/scan", async (req, res) => {
 // ============
 
 router.get('/visitor/:id', async (req, res) => {
-  if (String(req.params.id).match(/^[0-9a-fA-F]{24}$/) || !Visitor.findById(id)) {
+  if (String(req.params.id).match(/^[0-9a-fA-F]{24}$/)) {
     // Yes, it's a valid ObjectId, proceed with `findById` call.
     if (!req.isAuthenticated()) {
       //if you are not logged in as a university show the qr code and simple message
@@ -149,6 +149,7 @@ router.get('/visitor/:id', async (req, res) => {
         const foundVisitor = await Visitor.findById(id);
         // const time = moment(foundVisitor.dateOfBirth);
         // const dob = time.format("DD/MM/YYYY");
+        
         console.log(req.user.username, foundVisitor.seenBy);
         if (foundVisitor.seenBy == req.user.username){
           const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
