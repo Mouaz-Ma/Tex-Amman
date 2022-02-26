@@ -114,16 +114,21 @@ router.get('/visitor/:id', async (req, res) => {
         id
       } = req.params;
       const foundVisitor = await Visitor.findById(id);
-      // const time = moment(foundVisitor.dateOfBirth);
-      // const dob = time.format("DD/MM/YYYY");
-      const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
-      qr.toDataURL(qrurl, (err, src) => {
-        if (err) res.send("Error occured")
-        res.render('visitor', {
-          foundVisitor,
-          src
-        });
-      })
+      if(!foundVisitor){
+        req.flash('error', "the Studen Id isnt a valid ID");
+        res.redirect('/');
+      } else {
+        // const time = moment(foundVisitor.dateOfBirth);
+        // const dob = time.format("DD/MM/YYYY");
+        const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
+        qr.toDataURL(qrurl, (err, src) => {
+          if (err) res.send("Error occured")
+          res.render('visitor', {
+            foundVisitor,
+            src
+          });
+        })
+      }
     } else {
       //check if he is admin send him to admin info page where he can add the info for a student and print the image
       if (req.user.isAdmin == true) {
@@ -131,50 +136,62 @@ router.get('/visitor/:id', async (req, res) => {
           id
         } = req.params;
         const foundVisitor = await Visitor.findById(id);
-        // const time = moment(foundVisitor.dateOfBirth);
-        // const dob = time.format("DD/MM/YYYY");
-        const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
-        qr.toDataURL(qrurl, (err, src) => {
-          if (err) res.send("Error occured")
-          res.render('adminInfo', {
-            foundVisitor,
-            src
-          });
-        })
-      } else {
-        //check which university saw this student and record that to the database and render the info so the uni can register the degree
-        const {
-          id
-        } = req.params;
-        const foundVisitor = await Visitor.findById(id);
-        // const time = moment(foundVisitor.dateOfBirth);
-        // const dob = time.format("DD/MM/YYYY");
-        if (foundVisitor.seenBy == req.user.username){
-          const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
-        qr.toDataURL(qrurl, (err, src) => {
-          if (err) res.send("Error occured")
-          res.render('info', {
-            foundVisitor,
-            src
-          });
-        })
-       } else {
-          const newVisitor = new Visitor();
-          newVisitor.Name = foundVisitor.Name;
-          newVisitor.telephonNumber = foundVisitor.telephonNumber;
-          newVisitor.email = foundVisitor.email;
-          newVisitor.seenBy = req.user.username;
-          newVisitor.attended = true;
-          newVisitor.save();
-          foundVisitor.seenBy = req.user.username;
+        if(!foundVisitor){
+          req.flash('error', "the Studen Id isnt a valid ID");
+          res.redirect('/');
+        } else {
+          // const time = moment(foundVisitor.dateOfBirth);
+          // const dob = time.format("DD/MM/YYYY");
           const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
           qr.toDataURL(qrurl, (err, src) => {
             if (err) res.send("Error occured")
-            res.redirect('/visitor/' + newVisitor._id);
+            res.render('adminInfo', {
+              foundVisitor,
+              src
+            });
           })
         }
+        } else {
+          //check which university saw this student and record that to the database and render the info so the uni can register the degree
+          const {
+            id
+          } = req.params;
+          const foundVisitor = await Visitor.findById(id);
+          // const time = moment(foundVisitor.dateOfBirth);
+          // const dob = time.format("DD/MM/YYYY");
+          
+          console.log(req.user.username, foundVisitor.seenBy);
+          if(!foundVisitor){
+            req.flash('error', "the Studen Id isnt a valid ID");
+            res.redirect('/');
+          } else {
+            if (foundVisitor.seenBy == req.user.username){
+              const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
+            qr.toDataURL(qrurl, (err, src) => {
+              if (err) res.send("Error occured")
+              res.render('info', {
+                foundVisitor,
+                src
+              });
+            })
+           } else {
+              const newVisitor = new Visitor();
+              newVisitor.Name = foundVisitor.Name;
+              newVisitor.telephonNumber = foundVisitor.telephonNumber;
+              newVisitor.email = foundVisitor.email;
+              newVisitor.seenBy = req.user.username;
+              newVisitor.attended = true;
+              newVisitor.save();
+              foundVisitor.seenBy = req.user.username;
+              const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
+              qr.toDataURL(qrurl, (err, src) => {
+                if (err) res.send("Error occured")
+                res.redirect('/visitor/' + newVisitor._id);
+              })
+            }
+          }
+        }
       }
-    }
   } else {
     req.flash('error', "the Studen Id isnt a valid ID");
     res.redirect('/');
