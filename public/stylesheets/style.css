@@ -321,6 +321,7 @@ input[type=number] {
   color: #ffffff;
 
   padding: 40px 50px;
+  
 
 }
 
@@ -340,7 +341,7 @@ input[type=number] {
 
 .location-info p{
 
-  display: flex;
+  display: inline-flex;
 
   font-size: 20px;
 

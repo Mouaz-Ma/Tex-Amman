@@ -82,7 +82,7 @@ router.post("/scan", async (req, res) => {
         }
       });
       const mailOptions = {
-        from: 'tex@marifetedu.com', // sender address
+        from: 'info@marifetedu.com', // sender address
         to: req.body.email, // list of receivers
         subject: 'بطاقة معرض TEX', // Subject line
         text: 'Marifet', // plain text body
