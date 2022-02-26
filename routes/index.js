@@ -307,4 +307,23 @@ router.get("/user/download", async (req, res) => {
     });
 });
 
+
+// ==========
+// search
+// ==========
+
+router.get('/search', async function(req, res, next){
+  const q = req.query.q;
+  const visitorsFound = await Visitor.find({Name: {$regex: new RegExp(q), $options: 'i'}})
+  console.log(visitorsFound)
+  res.json(visitorsFound)
+})
+
+router.get('/searchNumber', async function(req, res, next){
+  const q = req.query.q;
+  const visitorsFound = await Visitor.find({telephonNumber: {$regex: new RegExp(q), $options: 'i'}})
+  console.log(visitorsFound)
+  res.json(visitorsFound)
+})
+
 module.exports = router;
