@@ -15,10 +15,9 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
     },
-    degree: [{
-        type : Schema.Types.ObjectId,
-        ref: 'Degree'
-    }],
+    degree: {
+        type: String
+    },
     updated: { 
         type: Date,
         default: Date.now 
@@ -28,8 +27,7 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     seenBy: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        type: String
     }
 
 })
