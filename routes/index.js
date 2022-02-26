@@ -37,6 +37,7 @@ router.get('/tex', (req, res) => {
 })
 
 // POST request listener to convert the user id to qr code and mail it to the user
+
 router.post("/scan", async (req, res) => {
   const pass = process.env.MAIL_PASSWORD;
   const newVisitor = new Visitor(req.body);

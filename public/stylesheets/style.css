@@ -234,13 +234,11 @@ input[type=number] {
     margin-bottom: 50px;
   }
   #imageAsset{
-    height: 80%;
     width: 50%;
   }
 }
 
 #imageAsset{
-  height: 80%;
   width: 80%;
 }
 
