@@ -106,7 +106,7 @@ router.post("/scan", async (req, res) => {
 // ============
 
 router.get('/visitor/:id', async (req, res) => {
-  if (String(req.params.id).match(/^[0-9a-fA-F]{24}$/)) {
+  if (String(req.params.id).match(/^[0-9a-fA-F]{24}$/) || await Visitor.findById(id) === null) {
     // Yes, it's a valid ObjectId, proceed with `findById` call.
     if (!req.isAuthenticated()) {
       //if you are not logged in as a university show the qr code and simple message
