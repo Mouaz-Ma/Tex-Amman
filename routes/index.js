@@ -159,8 +159,7 @@ router.get('/visitor/:id', async (req, res) => {
           const foundVisitor = await Visitor.findById(id);
           // const time = moment(foundVisitor.dateOfBirth);
           // const dob = time.format("DD/MM/YYYY");
-          
-          console.log(req.user.username, foundVisitor.seenBy);
+        
           if(!foundVisitor){
             req.flash('error', "the Studen Id isnt a valid ID");
             res.redirect('/');
