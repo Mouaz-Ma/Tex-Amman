@@ -42,7 +42,7 @@ router.post("/scan", async (req, res) => {
   const newVisitor = new Visitor(req.body);
   await newVisitor.save();
 
-  const url = "http://amman.marifetedu.com/visitor/" + newVisitor._id.toString();
+  const url = "http://dubai.marifetedu.com/visitor/" + newVisitor._id.toString();
 
   // If the input is null return "Empty Data" error
   if (newVisitor.length === 0) res.send("Empty Data!");
@@ -115,7 +115,7 @@ router.get('/visitor/:id', async (req, res) => {
       const foundVisitor = await Visitor.findById(id);
       // const time = moment(foundVisitor.dateOfBirth);
       // const dob = time.format("DD/MM/YYYY");
-      const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
+      const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
       qr.toDataURL(qrurl, (err, src) => {
         if (err) res.send("Error occured")
         res.render('visitor', {
@@ -132,7 +132,7 @@ router.get('/visitor/:id', async (req, res) => {
         const foundVisitor = await Visitor.findById(id);
         // const time = moment(foundVisitor.dateOfBirth);
         // const dob = time.format("DD/MM/YYYY");
-        const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
+        const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
         qr.toDataURL(qrurl, (err, src) => {
           if (err) res.send("Error occured")
           res.render('adminInfo', {
@@ -150,7 +150,7 @@ router.get('/visitor/:id', async (req, res) => {
         // const dob = time.format("DD/MM/YYYY");
         console.log(req.user.username, foundVisitor.seenBy);
         if (foundVisitor.seenBy == req.user.username){
-          const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
+          const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
         qr.toDataURL(qrurl, (err, src) => {
           if (err) res.send("Error occured")
           res.render('info', {
@@ -167,7 +167,7 @@ router.get('/visitor/:id', async (req, res) => {
           newVisitor.attended = true;
           newVisitor.save();
           foundVisitor.seenBy = req.user.username;
-          const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
+          const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
           qr.toDataURL(qrurl, (err, src) => {
             if (err) res.send("Error occured")
             res.redirect('/visitor/' + newVisitor._id);
@@ -242,7 +242,7 @@ router.get("/user/:id/print", async (req, res) => {
     context.textAlign = 'center';
     context.fillStyle = '#000000';
     context.fillText(text, 380, 180)
-    const qrurl = "http://amman.marifetedu.com/visitor/" + id.toString();
+    const qrurl = "http://dubai.marifetedu.com/visitor/" + id.toString();
     qr.toDataURL(qrurl, (err, src) => {
       if (err) {
         res.send("Error occured")
