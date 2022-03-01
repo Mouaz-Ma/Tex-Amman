@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
     },
     seenBy: {
         type: String
+    },
+    heardBy: {
+        type: String
     }
 
 })

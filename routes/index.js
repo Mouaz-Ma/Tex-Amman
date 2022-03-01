@@ -41,6 +41,7 @@ router.get('/tex', (req, res) => {
 router.post("/scan", async (req, res) => {
   const pass = process.env.MAIL_PASSWORD;
   const newVisitor = new Visitor(req.body);
+  console.log(req.body);
   await newVisitor.save();
 
   const url = "http://dubai.marifetedu.com/visitor/" + newVisitor._id.toString();
