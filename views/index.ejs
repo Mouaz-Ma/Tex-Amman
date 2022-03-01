@@ -30,29 +30,28 @@
                       <h3 class="white text-center">قم بحجز تذكرتك في معرض معرفة للجامعات التركية</h3>
                       
                       <form class="form" action="/scan" method="POST">
-                            <!-- Name -->
-                            <input id="Name" name="Name" type="text" class="form-control" placeholder="الاسم الكامل"
-                              required>
-                            <!-- email -->
-                            <input name="email" id="email" type="email" class="form-control"
-                              placeholder="البريد الالكتروني">
-                            <!-- telephone number  -->
-                            <input class="form-control" id="phone" type="number" name="telephonNumber" placeholder="رقم الهاتف" required>
-                            <label class="white mt-3" for="heardBy">كيف سمعت عنا؟</label>
-                            <select class="form-control" name="heardBy" id="heardBy" >
-                              <option value="other">آخرى</option>
-                              <option value="google Search">بحث غوغل</option>
-                              <option value="instagram">انستغرام</option>
-                              <option value="facebook">فيسبوك</option>
-                              <option value="influencer">مؤثر</option>
-                            </select>
-                            <br>
-                            <button id="generator" type="submit" class="btn btn-secondary btn-lg btn-block  mt-2"
-                              value="Get QR">إرسال
-                            </button>
-                          
-                        
-                      </form>
+                        <!-- Name -->
+                        <input id="Name" name="Name" type="text" class="form-control" placeholder="الاسم / Full Name"
+                          required>
+                        <!-- email -->
+                        <input name="email" id="email" type="email" class="form-control"
+                          placeholder="الايميل/ Email">
+                        <!-- telephone number  -->
+                        <input class="form-control" id="phone" type="number" name="telephonNumber" placeholder="رقم الهاتف/ Phone Number " required>
+                        <label class="white mt-3" for="heardBy">كيف سمعت عنا؟</label>
+                        <select class="form-control" name="heardBy" id="heardBy" >
+                          <option value="other">Other/أُخرى</option>
+                          <option value="google Search">Google/بحث غوغل</option>
+                          <option value="instagram">Instagram/ انستغرام</option>
+                          <option value="facebook">Facebook/ فيسبوك</option>
+                          <option value="influencer">مؤثر/Influencer</option>
+                        </select>
+                        <br>
+                        <button id="generator" type="submit" class="btn btn-secondary btn-lg btn-block  mt-2"
+                          value="Get QR">ارسال/Send </button>
+                      
+                    
+                  </form>
                     </div>
                     <div class="col-md-6">
                       <img src="/images/Asset 1.png" alt="" id="imageAsset">
