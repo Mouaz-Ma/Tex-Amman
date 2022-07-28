@@ -32,7 +32,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
-router.get('/tex', (req, res) => {
+router.get('/texamman', (req, res) => {
   res.redirect('/');
 })
 
