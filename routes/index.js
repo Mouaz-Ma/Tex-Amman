@@ -85,9 +85,9 @@ router.post("/scan", async (req, res) => {
       const mailOptions = {
         from: 'info@marifetedu.com', // sender address
         to: req.body.email, // list of receivers
-        subject: 'بطاقة معرض TEX', // Subject line
+        subject: 'بطاقة ملتقى TEX', // Subject line
         text: 'Marifet', // plain text body
-        html: '<h1> شكرا </h1> <p> لقد تم حجز مقعد لك في المعرض يرجى الاحتفاظ بالرمز من خلال صورة أو على بريدك الالكتروني</p> <br> <img src="' + src + '"> <br> <a href="' + url + '">اضغط هنا لمشاهدت معلوماتك</a> ', // html body
+        html: '<h1> شكرا </h1> <p> لقد تم حجز مقعد لك في الملتقى يرجى الاحتفاظ بالرمز من خلال صورة أو على بريدك الالكتروني</p> <br> <img src="' + src + '"> <br> <a href="' + url + '">اضغط هنا لمشاهدت معلوماتك</a> ', // html body
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
