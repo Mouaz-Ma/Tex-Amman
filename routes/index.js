@@ -323,9 +323,16 @@ router.get("/user/download", async (req, res) => {
       width: 30
     },
     {
-      header: 'updated',
-      key: 'updated',
-      width: 30
+      header: 'created At',
+      key: 'createdAt',
+      width: 30,
+      style: { numFmt: 'MM/DD/YYYY HH:MM:SS' }
+    },
+    {
+      header: 'updated At',
+      key: 'updatedAt',
+      width: 30,
+      style: { numFmt: 'MM/DD/YYYY HH:MM:SS' }
     },
   ];
   // adding rows
