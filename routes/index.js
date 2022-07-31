@@ -18,6 +18,7 @@ const express = require('express'),
   excel = require('exceljs'),
   moment = require('moment');
 
+const { calculateObjectSize } = require('bson');
 // canvas setup
 const {
   createCanvas,
@@ -328,15 +329,20 @@ router.get("/user/download", async (req, res) => {
       width: 30,
       style: { numFmt: 'MM/DD/YYYY HH:MM:SS' }
     },
-    {
-      header: 'updated At',
-      key: 'updatedAt',
-      width: 30,
-      style: { numFmt: 'MM/DD/YYYY HH:MM:SS' }
-    },
   ];
   // adding rows
   visitorsWorksheet.addRows(visitors);
+
+  // formating date cell
+  const dateCol = visitorsWorksheet.getColumn('createdAt');
+  dateCol.eachCell(function(cell, rowNumber){
+    if(cell.value !== null){
+      let newValue = cell.value + 3;
+      cell.value = newValue;
+      cell.numFmt = 'MM/DD/YYYY HH:MM:SS';
+      
+    }
+  })
   // Write to File
   workbook.xlsx.writeFile("visitors.xlsx")
     .then(function () {
